@@ -1,0 +1,36 @@
+<?php
+
+namespace {{namespace}}Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class HomeController extends Controller
+{
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function index()
+    {
+        $response = Http::post("https://a.klaviyo.com/api/track", [
+            "token" => "pk_63803bf1a962b088f649b4329dd1bf3bcb",
+            "event" => "Track Button was pressed clicked",
+            "customer_properties" => [
+                 "\$email" => "user3@gmail.com"
+            ],
+            "time"  => "1642464532",
+        ]);
+        return view('home');
+    }
+}
